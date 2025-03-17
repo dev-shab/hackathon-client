@@ -1,12 +1,43 @@
-import React from "react";
-import Button from "@mui/material/Button";
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import HomePage from './HomePage';
+import AdminDashboard from './AdminDashboard';
+import UserProfile from './UserProfile';
+import Unauthorized from './Unauthorized';
+import ProtectedRoute from './ProtectedRoute';
 
-const App = () => {
+function App() {
+  const userRole = 'user'; // Mocked role; replace with actual role from authentication logic
+
   return (
-    <div className="text-3xl">
-      <Button variant="contained">Contained</Button>
-    </div>
+    <Router>
+      <Routes>
+        {/* Public Routes */}
+        <Route path="/" element={<HomePage />} />
+
+        {/* Protected Routes */}
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute userRole={userRole} requiredRole="admin">
+              <AdminDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute userRole={userRole} requiredRole="user">
+              <UserProfile />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Unauthorized Route */}
+        <Route path="/unauthorized" element={<Unauthorized />} />
+      </Routes>
+    </Router>
   );
-};
+}
 
 export default App;
