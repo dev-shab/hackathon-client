@@ -1,5 +1,11 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Outlet,
+  useNavigate,
+} from "react-router-dom";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -15,50 +21,70 @@ import Login from "../pages/login";
 const drawerWidth = 240;
 
 const SideBar = () => {
+  const navigate = useNavigate();
   const [open, setOpen] = React.useState(true);
+  const pages = [
+    {
+      name: "Dashboard",
+      path: "/dashboard",
+    },
+    {
+      name: "Profile",
+      path: "/profile",
+    },
+    {
+      name: "Fitness Goals",
+      path: "/goals",
+    },
+    {
+      name: "Book Appointment",
+      path: "/book-appointment",
+    },
+    {
+      name: "Audit Logs",
+      path: "/audit-logs",
+    },
+  ];
   return (
-    <Router>
-      <Routes>
-        <Box sx={{ display: "flex" }}>
-          <CssBaseline />
-          <NavBar toggleSidebar={setOpen} />
-          <Drawer
-            sx={{
-              width: drawerWidth,
-              flexShrink: 0,
-              "& .MuiDrawer-paper": {
-                width: drawerWidth,
-                boxSizing: "border-box",
-              },
-            }}
-            variant="persistent"
-            anchor="left"
-            open={open}
-          >
-            <Toolbar />
-            <Divider />
-            <List>
-              {["Sample1", "Sample2"].map((text) => (
-                <ListItem key={text} disablePadding>
-                  <ListItemButton>
-                    <ListItemText primary={text} />
-                  </ListItemButton>
-                </ListItem>
-              ))}
-            </List>
-          </Drawer>
-          <Box
-            component="main"
-            sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
-          >
-            <Toolbar />
-          </Box>
-          <>
-            {/* Public Routes */}
-            {/* <Route path="/" element={<HomePage />} /> */}
+    <Box sx={{ display: "flex" }}>
+      <NavBar toggleSidebar={setOpen} />
+      <Drawer
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          "& .MuiDrawer-paper": {
+            width: drawerWidth,
+            boxSizing: "border-box",
+          },
+        }}
+        variant="persistent"
+        anchor="left"
+        open={open}
+      >
+        <Toolbar />
+        <Divider />
+        <List>
+          {pages.map(({ name, path }) => (
+            <ListItem key={name} disablePadding>
+              <ListItemButton onClick={() => navigate(path)}>
+                <ListItemText primary={name} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
+      >
+        <Toolbar />
+      </Box>
+      <>
+        {/* Public Routes */}
+        {/* <Route path="/" element={<HomePage />} /> */}
 
-            {/* Protected Routes */}
-            {/* <Route
+        {/* Protected Routes */}
+        {/* <Route
           path="/admin"
           element={
             <ProtectedRoute userRole={userRole} requiredRole="admin">
@@ -75,17 +101,15 @@ const SideBar = () => {
           }
         /> */}
 
-            <Route path="/login" element={<Login />} />
+        <Outlet />
 
-            {/* Unauthorized Route */}
-            {/* <Route path="/unauthorized" element={<Unauthorized />} /> */}
-            {/* <div className="text-3xl">
+        {/* Unauthorized Route */}
+        {/* <Route path="/unauthorized" element={<Unauthorized />} /> */}
+        {/* <div className="text-3xl">
           <Navigation />
         </div> */}
-          </>
-        </Box>
-      </Routes>
-    </Router>
+      </>
+    </Box>
   );
 };
 

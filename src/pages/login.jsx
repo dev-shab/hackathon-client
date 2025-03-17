@@ -24,7 +24,7 @@ const Login = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center my-auto h-screen">
+    <div className="flex flex-col items-center justify-center mx-auto my-auto h-screen">
       <h2 className="text-3xl py-8">Login</h2>
       <TextField
         sx={{ marginBottom: "2rem" }}
