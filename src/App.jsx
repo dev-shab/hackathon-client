@@ -3,7 +3,7 @@ import HomePage from './HomePage';
 import AdminDashboard from './AdminDashboard';
 import UserProfile from './UserProfile';
 import Unauthorized from './Unauthorized';
-import ProtectedRoute from './ProtectedRoute';
+import ProtectedRoute from './routes';
 
 function App() {
   const userRole = 'user';
