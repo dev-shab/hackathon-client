@@ -1,4 +1,3 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './HomePage';
 import AdminDashboard from './AdminDashboard';
@@ -7,7 +6,7 @@ import Unauthorized from './Unauthorized';
 import ProtectedRoute from './ProtectedRoute';
 
 function App() {
-  const userRole = 'user'; // Mocked role; replace with actual role from authentication logic
+  const userRole = 'user';
 
   return (
     <Router>
@@ -35,8 +34,12 @@ function App() {
 
         {/* Unauthorized Route */}
         <Route path="/unauthorized" element={<Unauthorized />} />
+        <div className="text-3xl">
+          <Navigation />
+        </div>
       </Routes>
     </Router>
+
   );
 }
 
