@@ -1,10 +1,10 @@
 import React from "react";
-import Button from "@mui/material/Button";
+import Navigation from "./components/Navigation";
 
 const App = () => {
   return (
     <div className="text-3xl">
-      <Button variant="contained">Contained</Button>
+      <Navigation />
     </div>
   );
 };
