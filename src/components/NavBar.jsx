@@ -6,8 +6,11 @@ import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
+import { useNavigate } from "react-router-dom";
 
 const NavBar = ({ toggleSidebar }) => {
+  const navigate = useNavigate();
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="absolute" sx={{ width: `100%`, zIndex: 1400 }}>
@@ -25,7 +28,9 @@ const NavBar = ({ toggleSidebar }) => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Medi Care
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button onClick={() => navigate("/login")} color="inherit">
+            Login
+          </Button>
           <Button color="inherit">Signup</Button>
         </Toolbar>
       </AppBar>
