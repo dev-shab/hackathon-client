@@ -2,21 +2,26 @@ import React, { useState } from "react";
 import axios from "axios";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import { useNavigate } from "react-router";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
-  const [role, setRole] = useState("");
 
-  const handleLogin = async () => {
+  const handleLogin = async (role) => {
     try {
-      const response = await axios.post("http://localhost:3000/login", {
-        email,
-        password,
-        role,
-      });
+      const response = await axios.post(
+        "http://localhost:8090/api/auth/login",
+        {
+          email,
+          password,
+          role,
+        }
+      );
       localStorage.setItem("token", response.data.token);
+      navigate("/dashboard");
       setMessage("Login successful!");
     } catch (error) {
       setMessage("Login failed!");
@@ -49,10 +54,10 @@ const Login = () => {
       />
 
       <div className="flex items-center justify-center gap-2">
-        <Button variant="contained" onClick={() => setRole("patient")}>
+        <Button variant="contained" onClick={() => handleLogin("patient")}>
           Login as Patient
         </Button>
-        <Button variant="contained" onClick={() => setRole("provider")}>
+        <Button variant="contained" onClick={() => handleLogin("provider")}>
           Login as provider
         </Button>
       </div>
